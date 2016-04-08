@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<!-- Bootstrap -->
+<link rel="stylesheet"
+	href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+<link rel="stylesheet" href="jqueryFileUpload/css/jquery.fileupload.css">
+<link rel="stylesheet"
+	href="jqueryFileUpload/css/jquery.fileupload-ui.css">
+<style>
+body {
+	padding-top: 50px;
+	background-color: #FFFFCC;
+}
+</style>
+</head>
+<body>
+	<div id="fileupload">
+		<h2>文件上传</h2>
+		<div class="row fileupload-buttonbar" style="padding-left: 15px;">
+			<div class="thumbnail col-sm-6">
+				<img id="weixin_show"
+					style="height: 180px; margin-top: 10px; margin-bottom: 8px;"
+					src="__PUBLIC__/images/game/game_1.png" data-holder-rendered="true">
+				<div class="progress progress-striped active" role="progressbar"
+					aria-valuemin="10" aria-valuemax="100" aria-valuenow="0">
+					<div id="weixin_progress" class="progress-bar progress-bar-success"
+						style="width: 0%;"></div>
+				</div>
+				<div class="caption" align="center">
+					<span id="weixin_upload" class="btn btn-primary fileinput-button">
+						<span>上传</span> <input type="file" id="weixin_image"
+						name="weixin_image" multiple>
+					</span> <a id="weixin_cancle" href="javascript:void(0)"
+						class="btn btn-warning" role="button"
+						onclick="cancleUpload('weixin')" style="display: none">删除</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="jqueryFileUpload/js/vendor/jquery.ui.widget.js"></script>
+		<script src="jqueryFileUpload/js/jquery.iframe-transport.js"></script>
+		<script src="jqueryFileUpload/js/jquery.fileupload.js"></script>
+		<script>
+			$(document).ready(
+					function() {
+						$('#fileupload')
+								.fileupload(
+										{
+											dataType : 'json',
+											url: 'uploadFile.do',
+											sequentialUploads: true
+										}).bind('fileuploadprogress', function(e, data) {
+											var progress = parseInt(
+													data.loaded
+															/ data.total
+															* 100, 10);
+											$('#weixin_progress').css('width',
+													progress + '%');
+											$("#weixin_progress").html(
+													progress + '%');
+										}).bind('fileuploaddone', function (e, data) {  
+								            $("#weixin_show").attr("src","viewFile.do?fileId=1");  
+								            $("#weixin_upload").css({display:"none"});  
+								            $("#weixin_cancle").css({display:""});  
+								        });
+					});
+		</script>
+</body>
+</html>

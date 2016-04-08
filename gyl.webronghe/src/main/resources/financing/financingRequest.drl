@@ -1,0 +1,17 @@
+package com.qiankang.rules 
+  
+rule "monthsCheck"  
+    salience 1  
+    when   
+        f: FinancingRequest((financingAmount > 10000 && months >= 1))  
+    then  
+        System.out.println(f);
+end  
+  
+rule "financingAmountCheck"  
+    salience 2  
+    when  
+        f: FinancingRequest(financingAmount > 20000000);  
+    then  
+        System.out.println(f);
+end  
